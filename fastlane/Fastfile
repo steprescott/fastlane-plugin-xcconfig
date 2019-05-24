@@ -21,4 +21,20 @@ lane :test do
     name: 'PRODUCT_NAME',
     value: 'Updated App'
   )
+
+  # Sets PRODUCT_NAME value to 'App' in Configs/Test.xcconfig with no console output
+  set_xcconfig_value(
+    path: 'fastlane/Test.xcconfig',
+    name: 'PRODUCT_NAME',
+    value: 'App',
+    silent: true
+  )
+
+  # Update PRODUCT_NAME value to 'Updated App' in Configs/Test.xcconfig with no console output
+  update_xcconfig_value(
+    path: 'fastlane/Test.xcconfig',
+    name: 'PRODUCT_NAME',
+    value: 'Updated App',
+    silent: true
+  )
 end

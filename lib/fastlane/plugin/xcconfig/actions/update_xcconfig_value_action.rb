@@ -34,7 +34,7 @@ module Fastlane
           end
 
           Fastlane::UI.user_error!("Couldn't find '#{name}' in #{path}.") unless updated
-          Fastlane::UI.message("Updated `#{name}` to `#{value}`")
+          Fastlane::UI.message("Updated `#{name}` to `#{value}`") unless params[:silent]
 
           FileUtils.cp(tmp_file, path)
         ensure
@@ -78,7 +78,13 @@ module Fastlane
                                        optional: false,
                                        verify_block: proc do |value|
                                          UI.user_error!("Couldn't find xcconfig file at path '#{value}'") unless File.exist?(File.expand_path(value))
-                                       end)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :silent,
+                                       env_name: "XCCP_UPDATE_VALUE_PARAM_SILENT",
+                                       description: "Remove any console output other than errors",
+                                       optional: true,
+                                       default_value: false,
+                                       is_string: false)
         ]
       end
 
